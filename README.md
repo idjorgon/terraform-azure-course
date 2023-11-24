@@ -9,5 +9,5 @@
 - terraform state list
 - terraform test
 
-- Azure Resources being provisioned
-![Alt text](<tf-resources.png>)
+## Azure Resources being provisioned
+![Alt text](<tf-res-azure.png>)
