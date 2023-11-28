@@ -1,13 +1,14 @@
-## TODO: FreeCodeCamp Short Course on Azure Terraform & learnings captured in this repo
+## FreeCodeCamp Short Course on Azure Terraform & learnings captured in this repo
 
-## Fundamental Terraform workflow/commands
+- Link to the [course](https://www.youtube.com/watch?v=V53AHWun17s)
+
+## Fundamental Terraform workflow & commands
 
 - terraform fmt
 - terraform plan
 - terraform apply -auto-approve
 - terraform apply -destroy
 - terraform state list
-- terraform test
 
-## Azure Resources being provisioned
+## Screenshot of Azure Resources being provisioned
 ![Alt text](<tf-res-azure.png>)
