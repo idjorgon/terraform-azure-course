@@ -9,6 +9,3 @@
 - terraform apply -auto-approve
 - terraform apply -destroy
 - terraform state list
-
-## Screenshot of Azure Resources being provisioned
-![Alt text](<tf-res-azure.png>)
