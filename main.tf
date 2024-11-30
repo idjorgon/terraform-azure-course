@@ -2,7 +2,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "=3.0.0"
+      version = ">= 3.0.0, < 4.0.0"
     }
   }
 }
@@ -20,7 +20,7 @@ resource "azurerm_resource_group" "mtc-rg" {
 }
 
 resource "azurerm_virtual_network" "mtc-vn" {
-  name                = "mtc-network"
+  name                = var.vnet_name
   resource_group_name = azurerm_resource_group.mtc-rg.name
   location            = azurerm_resource_group.mtc-rg.location
   address_space       = ["10.123.0.0/16"]
@@ -38,18 +38,29 @@ resource "azurerm_subnet" "mtc-subnet" {
 }
 
 resource "azurerm_network_security_group" "mtc-sg" {
-  name                = "mtc-sg"
+  name                = var.nsg_name
   location            = azurerm_resource_group.mtc-rg.location
   resource_group_name = azurerm_resource_group.mtc-rg.name
 
   tags = {
     environment = "dev"
   }
+  security_rule {
+    name                       = "allow-ssh"
+    priority                   = 100
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "22"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
 }
 
 resource "azurerm_network_security_rule" "mtc-dev-rule" {
   name                        = "mtc-dev-rule"
-  priority                    = 100
+  priority                    = 200
   direction                   = "Inbound"
   access                      = "Allow"
   protocol                    = "*"
@@ -95,7 +106,7 @@ resource "azurerm_network_interface" "mtc-nic" {
 }
 
 resource "azurerm_linux_virtual_machine" "mtc-vm" {
-  name                  = "mtc-vm"
+  name                  = var.vm_name
   resource_group_name   = azurerm_resource_group.mtc-rg.name
   location              = azurerm_resource_group.mtc-rg.location
   size                  = "Standard_B1s"

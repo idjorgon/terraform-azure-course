@@ -36,5 +36,12 @@ override.tf.json
 .terraformrc
 terraform.rc
 
-# DS Store
+# Ignore DS Store
 .DS_Store
+
+# Ignore pytest cache
+.pytest_cache
+tests/__pycache__
+
+# Ignore config which contains Azure Subscription ID
+config.json
