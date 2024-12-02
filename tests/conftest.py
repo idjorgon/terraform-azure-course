@@ -3,6 +3,7 @@ import json
 from azure.identity import DefaultAzureCredential
 from azure.mgmt.compute import ComputeManagementClient
 from azure.mgmt.network import NetworkManagementClient
+from azure.mgmt.storage import StorageManagementClient
 import hcl2
 import os
 
@@ -42,6 +43,13 @@ def network_client(azure_subscription_id):
     """Fixture to create and provide a NetworkManagementClient."""
     credential = DefaultAzureCredential()
     client = NetworkManagementClient(credential, azure_subscription_id)
+    return client
+
+@pytest.fixture(scope="session")
+def storage_client(azure_subscription_id):
+    """Fixture to create and provide a StorageManagementClient."""
+    credential = DefaultAzureCredential()
+    client = StorageManagementClient(credential, azure_subscription_id)
     return client
 
 # Fixture to load and parse the Terraform variables from variables.tf

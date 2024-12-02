@@ -27,3 +27,9 @@ variable "nsg_name" {
   type        = string
   default     = "mtc-sg"
 }
+
+variable "storage_account_name" {
+  description = "The name of the Storage Account"
+  type        = string
+  default     = "mtcstorage01"
+}

@@ -132,3 +132,14 @@ resource "azurerm_linux_virtual_machine" "mtc-vm" {
     version   = "latest"
   }
 }
+
+resource "azurerm_storage_account" "mtc-storage" {
+  name                     = var.storage_account_name
+  resource_group_name      = azurerm_resource_group.mtc-rg.name
+  location                 = azurerm_resource_group.mtc-rg.location
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+  tags = {
+    environment = "dev"
+  }
+}
