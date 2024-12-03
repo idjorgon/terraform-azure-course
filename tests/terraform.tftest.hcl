@@ -1,6 +1,7 @@
 variables {
     location = "East Us"
     resource_group_name = "mtc-rg"
+    virtual_network_name = "mtc-network"
     env = "dev"
 }
 
@@ -21,7 +22,7 @@ run "unit_tests" {
     }
 
     assert {
-        condition = azurerm_virtual_network.mtc-vn.name == "mtc-network"
+        condition = azurerm_virtual_network.mtc-vn.name == var.virtual_network_name
         error_message = "Virtual Network name is not expected"
     }
 
