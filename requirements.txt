@@ -1,0 +1,9 @@
+pytest
+json
+hcl2
+os
+azure-mgmt-resource>=18.0.0
+azure-mgmt-compute
+azure-mgmt-network
+azure-mgmt-storage
+azure-identity>=1.5.0
