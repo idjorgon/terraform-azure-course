@@ -33,6 +33,9 @@ Read more about signing in to Azure [here](https://learn.microsoft.com/en-us/cli
 - Type `terraform test` in the terminal (this will run the terraform tests and subsequently destroy the test resources)
 
 
+## TODO: Add writeup for Pester unit tests
+
+
 ## Fundamental Terraform workflow & commands
 
 - `terraform fmt`
