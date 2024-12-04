@@ -1,6 +1,6 @@
 ## Description
 
-This is a POC for IaC testing, for ADM.
+This is a POC for IaC testing. It uses Terraform to create a resource group, virtual machine, and network interface. The tests are written in Python and use the Azure Python SDK to verify the resources are created as expected.
 
 
 ## Prerequisites
