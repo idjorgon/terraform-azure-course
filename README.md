@@ -33,10 +33,19 @@ Read more about signing in to Azure [here](https://learn.microsoft.com/en-us/cli
 - Type `terraform test` in the terminal (this will run the terraform tests and subsequently destroy the test resources)
 
 
-## TODO: Add writeup for Pester unit tests
+## Running sample Pester unit tests
+
+- Preconditions:
+    - Create tf_plan folder in the root directory of the repo
+    - Create/have a terraform plan file that you can save
+    - Type `terraform plan -out tf_plan/terraform.plan` in the terminal to create and save the plan file
+    - Type `terraform show -json terraform.plan` to ensure that the file is created and you are able to view it in JSON format
+    - We will use this plan file to compare and test the resources
+
+- Type `./tests/unit/unit.tests.ps1` in PowerShell terminal from the main/root directory of the repo
 
 
-## Fundamental Terraform workflow & commands
+## A few fundamental Terraform workflow and commands
 
 - `terraform fmt`
 - `terraform plan`
