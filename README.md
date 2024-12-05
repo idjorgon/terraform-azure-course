@@ -1,6 +1,6 @@
 ## Description
 
-This is a POC for IaC testing. It uses Terraform to create a resource group, virtual machine, and network interface. The tests are written in Python and use the Azure Python SDK to verify the resources are created as expected.
+This is a POC for IaC testing. It uses Terraform to create and deploy a few different Azure resources like resource group and virtual machine. The tests are written in Python/pytest and use the Azure Python SDK to verify the resources are created as expected. There are also Pester unit tests included as well as a couple of tests utilizing the Terraform Test framework.
 
 
 ## Prerequisites
@@ -10,7 +10,8 @@ This is a POC for IaC testing. It uses Terraform to create a resource group, vir
 3. Install [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli)
 4. Install latest version of [Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
 5. Install Python
-6. Install what's outlined in `requirements.txt` file: pytest, azure management libraries, json
+6. Install PowerShell
+7. Install what's outlined in `requirements.txt` file: pytest, azure management libraries, json
 
 
 ## Azure Setup
