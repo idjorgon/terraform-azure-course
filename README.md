@@ -46,7 +46,7 @@ Read more about signing in to Azure [here](https://learn.microsoft.com/en-us/cli
 - Type `./tests/unit/unit.tests.ps1` in PowerShell terminal from the main/root directory of the repo
 
 
-## A few fundamental Terraform workflow and commands
+## A few fundamental Terraform workflow commands
 
 - `terraform fmt`
 - `terraform plan`
