@@ -1,6 +1,6 @@
 Describe 'Terraform Pester Demo Tests' {
     BeforeAll -ErrorAction Stop {
-        Write-Host "Test Case: Pester Demo" -ForegroundColor Magenta
+        Write-Host "Test Cases: Pester Tests" -ForegroundColor Magenta
         Write-Host 'Validating...'
 
         # Parse the Terraform plan file
@@ -9,17 +9,22 @@ Describe 'Terraform Pester Demo Tests' {
         # Debug output to check the full plan content
         #Write-Host "Full Plan Content: $($Plan | ConvertTo-Json -Depth 1)"
 
-        # Ensure that resource_changes contains the expected resource (azurerm_resource_group.mtc-rg)
+        # Resource Group Plan
         $ResourceGroupAddress  = 'azurerm_resource_group.mtc-rg'
         $ResourceGroupPlan = $Plan.resource_changes | Where-Object { $_.address -eq $ResourceGroupAddress }
 
         # Virtual Network Plan
         $VirtualNetworkAddress = 'azurerm_virtual_network.mtc-vn'
         $VirtualNetworkPlan = $Plan.resource_changes | Where-Object { $_.address -eq $VirtualNetworkAddress }
+
+        # Azure VM Plan
+        $VirtualMachineAddress = 'azurerm_linux_virtual_machine.mtc-vm'
+        $VirtualMachinePlan = $Plan.resource_changes | Where-Object { $_.address -eq $VirtualMachineAddress }
         
         # Debugging output
         Write-Host "Resource Group Plan Found: $($ResourceGroupPlan.address)"
         Write-Host "Virtual Network Plan Found: $($VirtualNetworkPlan.address)"
+        Write-Host "Virtual Machine Plan Found: $($VirtualMachinePlan.address)"
 
         # Debug output to verify the resource group plan found
         #Write-Host "Resource Group Plan: $($ResourceGroupPlan | ConvertTo-Json -Depth 1)"
@@ -36,15 +41,22 @@ Describe 'Terraform Pester Demo Tests' {
             } else {
                 Write-Host "Resource Group Plan NOT found!"
             }
+
             if ($VirtualNetworkPlan) {
-                Write-Host "Virtual Network Plan Details: $($VirtualNetworkPlan | ConvertTo-Json -Depth 2)"
+                Write-Host "Virtual Network Plan Details: $($VirtualNetworkPlan | ConvertTo-Json -Depth 1)"
             } else {
                 Write-Host "Virtual Network Plan NOT found!"
+            }
+
+            if ($VirtualMachinePlan) {
+                Write-Host "Virtual Machine Plan Details: $($VirtualMachinePlan | ConvertTo-Json -Depth 1)"
+            } else {
+                Write-Host "Virtual Machine Plan NOT found!"
             }
         }
     }
 
-    # Region Resource Group Tests
+    # Resource Group Tests
     It 'Will create resource_group' {
         # Check if the 'change' field exists and contains 'actions'
         if ($ResourceGroupPlan.change -and $ResourceGroupPlan.change.actions) {
@@ -79,7 +91,7 @@ Describe 'Terraform Pester Demo Tests' {
     }
 
 
-    #Region Virtual Network Tests
+    # Virtual Network Tests
     It 'Will create virtual_network' {
         # Check if the 'change' field exists and contains 'actions'
         if ($VirtualNetworkPlan -and $VirtualNetworkPlan.change -and $VirtualNetworkPlan.change.actions) {
@@ -110,6 +122,30 @@ Describe 'Terraform Pester Demo Tests' {
         Write-Host "Actual VNet Name: $ActualName"
 
         # Compare the actual and expected names
+        $ActualName | Should -Be $ExpectedName
+    }
+
+    
+    # Virtual Machine Tests
+    It 'Will create virtual_machine in correct region' {
+        # Compare the VM's location with the expected region
+        $ExpectedRegion = $Variables.azure_region.value.Replace(" ", "").ToLower()
+        $ActualRegion = $VirtualMachinePlan.change.after.location.ToLower()
+
+        Write-Host "Expected Region: $ExpectedRegion"
+        Write-Host "Actual Region: $ActualRegion"
+
+        $ActualRegion | Should -Be $ExpectedRegion
+    }
+
+    It 'Will create virtual_machine with correct name' {
+        # Compare the VM's name with the expected one
+        $ExpectedName = $Variables.vm_name.value
+        $ActualName = $VirtualMachinePlan.change.after.name
+
+        Write-Host "Expected VM Name: $ExpectedName"
+        Write-Host "Actual VM Name: $ActualName"
+
         $ActualName | Should -Be $ExpectedName
     }
 }
