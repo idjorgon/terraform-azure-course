@@ -31,7 +31,7 @@ Read more about signing in to Azure [here](https://learn.microsoft.com/en-us/cli
 
 ## Running sample unit tests using the Terraform Test Framework
 
-- Type `terraform test` in the terminal (this will run the terraform tests and subsequently destroy the test resources)
+- Type `terraform test` in the terminal (this will run and execute the terraform tests)
 
 
 ## Running sample Pester unit tests
