@@ -2,6 +2,8 @@
 
 This is a POC for IaC testing. It uses Terraform to create and deploy a few different Azure resources like resource group and virtual machine. The tests are written in Python/pytest and use the Azure Python SDK to verify the resources are created as expected. There are also Pester unit tests included as well as a couple of tests utilizing the Terraform Test framework.
 
+Tests are located in the `tests` directory/folder. The `tests/e2e` folder contains sample tests that leverage Azure SDK management libraries and pytest. The `tests/unit` folder contains "unit tests" that are based on the Pester framework (a couple of tests are included that are based on the Terraform Test framework.)
+
 
 ## Prerequisites
 
@@ -29,11 +31,6 @@ Read more about signing in to Azure [here](https://learn.microsoft.com/en-us/cli
 - `pytest -v -s tests/`
 
 
-## Running sample unit tests using the Terraform Test Framework
-
-- Type `terraform test` in the terminal (this will run and execute the terraform tests)
-
-
 ## Running sample Pester unit tests
 
 - Preconditions:
@@ -41,9 +38,14 @@ Read more about signing in to Azure [here](https://learn.microsoft.com/en-us/cli
     - Create/have a terraform plan file that you can save
     - Type `terraform plan -out tf_plan/terraform.plan` in the terminal to create and save the plan file
     - Type `terraform show -json terraform.plan` to ensure that the file is created and you are able to view it in JSON format
-    - We will use this plan file to compare and test the resources
+    - Use this plan file to compare and test the resources
 
 - Type `./tests/unit/unit.tests.ps1` in PowerShell terminal from the main/root directory of the repo
+
+
+## Running sample unit tests using the Terraform Test Framework
+
+- Type `terraform test` in the terminal (this will run and execute the terraform tests)
 
 
 ## A few fundamental Terraform workflow commands
